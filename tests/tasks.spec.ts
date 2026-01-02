@@ -50,6 +50,7 @@ test.describe('cadastro', () => {
         expect(validationMessage).toEqual('This is a required field')
     })
 })
+
 test.describe('atualização', () => {
     test('Deve concluir uma tarefa', async ({ page, request }) => {
         //Dada que eu executo uma tarefa
@@ -63,6 +64,22 @@ test.describe('atualização', () => {
 
         // Então o sistema deverá concluir a tarefa
         await tasksPages.shouldBeDone(task.name)
+    })
+})
+
+test.describe('Exclusão', () => {
+    test('Deve excluir uma tarefa', async ({ page, request }) => {
+        //Dada que eu precise excluir uma tarefa.
+        const task = data.delete as TaskModel
+        await deleteTaskByHelper(request, task.name)
+        await postTask(request, task)
+
+        // Quando eu clico no botão excluir.
+        const tasksPages: TaskPages = new TaskPages(page)
+        await tasksPages.remove(task.name)
+
+        // Então o sistema deverá excluir a tarefa.
+        await tasksPages.shouldNotExit(task.name)
     })
 })
 

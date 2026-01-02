@@ -16,5 +16,9 @@
     "update": {
         "name": "Pagar a fatura do catão de Crédito",
         "is_done": false
+    },
+    "delete": {
+        "name": "Estudar Ruby",
+        "is_done": false
     }
 }
