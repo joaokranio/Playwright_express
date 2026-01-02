@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import { TaskModel } from './fixtures/task.model'
 import { deleteTaskByHelper, postTask } from './support/helpers'
 import { TaskPages } from './support/pages/tasks'
+import data from './fixtures/tasks.json'
 
 test.beforeEach(async ({ page }) => {
     const tasksPages: TaskPages = new TaskPages(page)
@@ -10,10 +11,7 @@ test.beforeEach(async ({ page }) => {
 
 test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
     // Dado que eu tenho uma nova tarefa
-    const task: TaskModel = {
-        name: 'Ler um livro de TypeScript',
-        is_done: false
-    }
+    const task = data.success as TaskModel
     await deleteTaskByHelper(request, task.name)
 
     // Quando faço o cadastro dessa tarefa
@@ -26,10 +24,7 @@ test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
 
 test('não deve permitir tarefa duplicada', async ({ page, request }) => {
     // Dado que eu tenho uma nova tarefa 
-    const task: TaskModel = {
-        name: 'Tarefa duplicada',
-        is_done: false
-    }
+    const task = data.duplicate as TaskModel
     await deleteTaskByHelper(request, task.name)
     await postTask(request, task)
 
@@ -43,10 +38,7 @@ test('não deve permitir tarefa duplicada', async ({ page, request }) => {
 
 test('campo obrigatório', async ({ page }) => {
     // Dado que eu não tenho informações de uma tarefa
-    const task: TaskModel = {
-        name: '',
-        is_done: false
-    }
+    const task = data.required as TaskModel
 
     // Quando tento realizar o cadastro da tarefa sem passar as informações.
     const tasksPages: TaskPages = new TaskPages(page)
