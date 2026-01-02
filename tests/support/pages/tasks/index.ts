@@ -11,7 +11,7 @@ export class TaskPages {
     }
 
     async go() {
-        await this.page.goto('http://192.168.18.32:8080')
+        await this.page.goto('/')
     }
 
     async create(task: TaskModel) {

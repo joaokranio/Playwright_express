@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@faker-js/faker@^10.1.0":
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/@faker-js/faker/-/faker-10.1.0.tgz"
-  integrity sha512-C3mrr3b5dRVlKPJdfrAXS8+dq+rq8Qm5SNRazca0JKgw1HQERFmrVb0towvMmw5uu8hHKNiQasMaR/tydf3Zsg==
-
 "@playwright/test@^1.57.0":
   version "1.57.0"
   resolved "https://registry.npmjs.org/@playwright/test/-/test-1.57.0.tgz"
@@ -20,6 +15,11 @@
   integrity sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==
   dependencies:
     undici-types "~7.16.0"
+
+dotenv@^17.2.3:
+  version "17.2.3"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-17.2.3.tgz"
+  integrity sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==
 
 playwright-core@1.57.0:
   version "1.57.0"
