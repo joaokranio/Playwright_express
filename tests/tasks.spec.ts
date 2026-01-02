@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { TaskModel } from './fixtures/task.model'
 import { deleteTaskByHelper, postTask } from './support/helpers'
 import { TaskPages } from './support/pages/tasks'
@@ -39,4 +39,20 @@ test('não deve permitir tarefa duplicada', async ({ page, request }) => {
 
     // Então deverá ser exibido um pop-up informando que a tarefa já foi cadastrada 
     await tasksPages.alertHaveText('Task already exists!')
+})
+
+test('campo obrigatório', async ({ page }) => {
+    // Dado que eu não tenho informações de uma tarefa
+    const task: TaskModel = {
+        name: '',
+        is_done: false
+    }
+
+    // Quando tento realizar o cadastro da tarefa sem passar as informações.
+    const tasksPages: TaskPages = new TaskPages(page)
+    await tasksPages.create(task)
+
+    // Então o sistema me informa que não é possível realizar essa ação.
+    const validationMessage = await tasksPages.inputTaskName.evaluate(e => (e as HTMLInputElement).validationMessage)
+    expect(validationMessage).toEqual('This is a required field')
 })
