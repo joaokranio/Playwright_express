@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test'
+import { TIMEOUT } from 'node:dns'
+
+test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
+
+    // Dado que eu tenho uma nova tarefa
+    const message = 'ler um livro de TypeScript'
+    await request.delete('http://192.168.18.32:3333/helper/tasks/' + message)
+
+    // E que quando eu estou na pagina de cadastro
+    await page.goto('http://192.168.18.32:8080')
+    await page.waitForTimeout(2500) //time out necessário para esperar carregar as informações do servido por estar muito lento
+
+    // Quando faço o cadastro dessa tarefa
+    const inputTaskName = page.locator('input[class*=InputNewTask]')
+    await inputTaskName.fill(message)
+    // await inputTaskName.press('Enter') //para inserir a tarefa pressionando "Enter"
+    // await page.click('xpath=//button[contains(text(),"Create")]') //usando xpath
+    await page.click('css=button >> text=Create')
+    await page.waitForTimeout(2500) //time out necessário para esperar carregar as informações do servido por estar muito lento
+    // await page.fill('#newTask', message) //preencher elemento pelo ID
+    // await page.fill('input[placeholder="Add a new Task"]', message) //usando placeholder
+    // await page.fill('._listInputNewTask_1yy0mp_21', message) //usando a Classe
+    // await page.fill('input[class*=InputNewTask]', message) //usando a expressão regular
+    
+    // Então essa tarefa deve ser exibida na lista
+    // const target =  page.getByTestId('task-item') //usando testid
+    // const target =  page.locator('.task-item') //usando css selector
+    // const target =  page.locator('div[class*=listItem]') //usando expressão regular class = "_listItem_1kgm5_1 task-item"
+    const target =  page.locator(`css=.task-item p >> text=${message}`) //usando combinações css para chegar no item para validação 
+    await expect(target).toBeVisible()
+    
+    
+})
