@@ -12,5 +12,9 @@
         "name": "",
         "is_done": false
         
+    },
+    "update": {
+        "name": "Pagar a fatura do catão de Crédito",
+        "is_done": false
     }
 }
